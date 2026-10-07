@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Social-Event-App – Event-Datensätze</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; background: #f7f7f9; }
+  h1 { font-size: 22px; }
+  #controls { margin-bottom: 24px; }
+  button { padding: 10px 16px; font-size: 15px; cursor: pointer; }
+  .record { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px; }
+  .record h3 { margin: 0 0 8px 0; font-size: 16px; }
+  .record pre { margin: 0; font-size: 13px; white-space: pre-wrap; color: #333; }
+  #status { color: #555; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+
+<h1>Social-Event-App – Veranstaltungen</h1>
+
+<div id="controls">
+  <input type="file" id="fileInput" accept=".json">
+</div>
+<div id="status"></div>
+<div id="output"></div>
+
+<script>
+  // --- Teil 2: Funktion zum Einlesen des Datensatzes ---
+  function readData(file, callback) {
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      try {
+        const records = JSON.parse(event.target.result);
+        callback(null, records);
+      } catch (error) {
+        callback(error, null);
+      }
+    };
+    reader.onerror = function () {
+      callback(reader.error, null);
+    };
+    reader.readAsText(file);
+  }
+
+  // --- Teil 3: Funktion zum Anzeigen des Datensatzes ---
+  function displayData(records) {
+    const output = document.getElementById("output");
+    const status = document.getElementById("status");
+    output.innerHTML = "";
+    status.textContent = `Es wurden ${records.length} Events geladen:`;
+
+    records.forEach((record, index) => {
+      console.log(`--- Event ${index + 1} ---`, record); // zusätzlich in der Browser-Konsole (F12)
+
+      const div = document.createElement("div");
+      div.className = "record";
+      div.innerHTML = `<h3>Event ${index + 1}: ${record.titel}</h3>
+                        <pre>${JSON.stringify(record, null, 2)}</pre>`;
+      output.appendChild(div);
+    });
+  }
+
+  // --- Datei-Auswahl verarbeiten ---
+  document.getElementById("fileInput").addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    readData(file, function (error, records) {
+      if (error) {
+        document.getElementById("status").textContent = "Fehler beim Einlesen der Datei: " + error.message;
+        return;
+      }
+      displayData(records);
+    });
+  });
+</script>
+
+</body>
+</html>
