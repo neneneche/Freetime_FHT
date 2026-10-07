@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1DA0C3">
+    <title>Freetime – Event Connection App</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Rounded" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+        (function() {
+            var t = localStorage.getItem('ft_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', t);
+        })();
+    </script>
+</head>
+<body>
+    <div id="shell" class="shell">
+        <!-- Sidebar overlay -->
+        <div id="sidebarOverlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+        <!-- Navigation Rail (toggleable sidebar) -->
+        <nav id="navRail" class="nav-rail">
+            <div class="nav-rail-header">
+                <div class="nav-rail-logo">F</div>
+            </div>
+            <div class="nav-rail-items" id="navRailItems"></div>
+            <div class="nav-rail-footer" id="navRailFooter"></div>
+        </nav>
+
+        <!-- Mobile bottom nav -->
+        <nav id="bottomNav" class="bottom-nav" style="display:none">
+            <div class="bottom-nav-items" id="bottomNavItems"></div>
+        </nav>
+
+        <!-- Main content area -->
+        <main id="mainArea" class="main-area">
+            <!-- Top bar -->
+            <header id="topBar" class="top-bar">
+                <div style="display:flex;align-items:center;gap:12px">
+                    <button class="btn-icon" id="menuToggle" onclick="toggleSidebar()">
+                        <span class="material-symbols-rounded">menu</span>
+                    </button>
+                    <span class="top-bar-title">Freetime</span>
+                </div>
+                <div class="top-bar-actions" id="topBarActions"></div>
+            </header>
+            <div id="app" class="app-content"></div>
+        </main>
+    </div>
+
+    <div id="snackbarContainer" class="snackbar-container"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/js/security.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/profile.js"></script>
+    <script src="/js/friends.js"></script>
+    <script src="/js/map.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/events.js"></script>
+    <script src="/js/chat.js"></script>
+    <script src="/js/moderation.js"></script>
+    <script src="/js/admin.js"></script>
+</body>
+</html>
