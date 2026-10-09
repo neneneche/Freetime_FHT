@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  freetime:
+    build:
+      context: ../freetime
+      dockerfile: ../freetime-docker/Dockerfile
+    container_name: freetime-app
+    ports:
+      - "8032:8032"
+    environment:
+      - SERVER_ADDRESS=0.0.0.0
+      - SERVER_PORT=8032
+    restart: unless-stopped
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: freetime-cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    depends_on:
+      - freetime

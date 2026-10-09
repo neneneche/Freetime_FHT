@@ -62,7 +62,13 @@ async function api(path, options = {}) {
     const headers = { 'Content-Type': 'application/json' };
     if (state.token) headers['Authorization'] = 'Bearer ' + state.token;
     const res = await fetch(API_BASE + path, { ...options, headers });
-    const data = await res.json();
+    const text = await res.text();
+    let data;
+    try {
+        data = text ? JSON.parse(text) : {};
+    } catch {
+        throw new Error(text || res.statusText || 'API-Fehler');
+    }
     if (!res.ok) throw new Error(data.error || 'API-Fehler');
     return data;
 }
