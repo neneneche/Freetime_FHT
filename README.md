@@ -82,3 +82,5 @@ mvn clean package -DskipTests
 java -jar target/freetime-0.0.1-SNAPSHOT.jar
 # → http://localhost:8032
 ```
+
+This is a test whether I can commit changes
