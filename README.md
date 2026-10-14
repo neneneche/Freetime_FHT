@@ -41,7 +41,7 @@ Die App ist dann unter `http://freetime:8032` bzw. der Tunnel-URL erreichbar.
 docker compose down
 ```
 
-## Demo-Zugänge
+## Demo-Zugänge:
 
 | Benutzername | Passwort | Rolle |
 |---|---|---|
